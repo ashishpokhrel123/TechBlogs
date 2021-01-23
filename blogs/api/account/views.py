@@ -11,7 +11,22 @@ from rest_framework.genrics import (     CreateAPIView,
 )
 from .serializers import UserSerializer
 
-User = get_user_model()
+
 
 
 # Create your views here.
+User = get_user_model()
+
+class UserCreateApiView(CreateAPIView):
+    # Create User instance and return username, email 
+    #method = Post
+    permissions = [AllowAny]
+    serializers = [UserSerializer]
+class UserListApiView(ListAPIView):
+    #return all existing user 
+    # method = Get
+
+    queryset = User.objects.all()
+    permissions = [IsAuthenciated]
+    serializers = [UserSerializer]
+
